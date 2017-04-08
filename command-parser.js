@@ -315,6 +315,7 @@ var parse = exports.parse = function (room, by, msg) {
 	}
 
 	var toParse = msg.substr(cmdToken.length);
+	if (!isNaN(toParse)) toParse = 'bid ' + toParse;
 	var spaceIndex = toParse.indexOf(' ');
 
 	var cmd, args;
