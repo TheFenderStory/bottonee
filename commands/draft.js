@@ -3,14 +3,14 @@ const initialMoney = 100000; //Money each team should start with
 const minPlayers = 8; //Forces managers to buy a certain amount of players. To disable, set this to 1
 const defaultTeams = {//If you want teams set automatically, they can be placed here
         //Leaving UUPL teams so you can see how it is done
-        /*"The Black City Burglars": "flcl",
-        "Mikan Island Monsters": "teal6",
-        "The Blackthorn City Battle Girls": "kinguu",
-        "Route 30 Youngsters": "dodmen",
-        "Slateport City Socialites": "hogg",
-        "Littleroot Lindas": "shiba",
-        "Dewford Town Delinquents": "fatty",
-        "Pewter Porygon 2s": "Omfuga"*/
+        "The MDL Meowths": "Nineage",
+        "Weeaboo Wailmers": "slurmz®",
+        "Turkey Bacon Tepigs": "c o c o n u t",
+        "Valiant Vipers": "ItzViper482",
+        "goao goaos": "GOAO",
+        "trashy trubbish": "trash",
+        "the pablo phanpys": "ggggd",
+        "Top Percentage Rattatas": "Altarielvonsweep"
 };
 
 
