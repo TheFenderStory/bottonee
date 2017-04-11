@@ -1,17 +1,7 @@
 'use strict';
 const initialMoney = 100000; //Money each team should start with
 const minPlayers = 8; //Forces managers to buy a certain amount of players. To disable, set this to 1
-const defaultTeams = {//If you want teams set automatically, they can be placed here
-        //Leaving UUPL teams so you can see how it is done
-        "The MDL Meowths": "Nineage",
-        "Weeaboo Wailmers": "slurmz®",
-        "Turkey Bacon Tepigs": "c o c o n u t",
-        "Valiant Vipers": "ItzViper482",
-        "goao goaos": "GOAO",
-        "trashy trubbish": "trash",
-        "the pablo phanpys": "ggggd",
-        "Top Percentage Rattatas": "Altarielvonsweep"
-};
+const defaultTeams = {};
 
 
 const fs = require('fs');
