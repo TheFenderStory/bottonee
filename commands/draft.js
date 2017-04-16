@@ -1,7 +1,17 @@
 'use strict';
 const initialMoney = 100000; //Money each team should start with
 const minPlayers = 8; //Forces managers to buy a certain amount of players. To disable, set this to 1
-const defaultTeams = {};
+const defaultTeams = {//If you want teams set automatically, they can be placed here
+        //Leaving UUPL teams so you can see how it is done
+        /*"The Black City Burglars": "flcl",
+        "Mikan Island Monsters": "teal6",
+        "The Blackthorn City Battle Girls": "kinguu",
+        "Route 30 Youngsters": "dodmen",
+        "Slateport City Socialites": "hogg",
+        "Littleroot Lindas": "shiba",
+        "Dewford Town Delinquents": "fatty",
+        "Pewter Porygon 2s": "Omfuga"*/
+};
 
 
 const fs = require('fs');
@@ -84,6 +94,8 @@ class Draft {
         if (!this.managers[user] || this.nomination !== this.managers[user]) return false;
         let targetId = toId(target);
         if (!this.players[targetId]) return Bot.say(this.room, 'The user ' + target + ' was not found!');
+	let team = this.teams[this.managers[user]];
+	if (team.money < 3000) return Bot.say(this.room, "You don't have enough money to perform this action!");
         let targetName = this.players[targetId].name;
         this.nominee = targetName;
 		this.state = "start";
@@ -119,7 +131,7 @@ class Draft {
         if (amount <= 100) amount *= 1000;
         if (amount <= this.bid) return Bot.say(this.room, teamName + ': Bid must be at least 500 more than ' + this.bid);
         let maxBid = team.money - (minPlayers - team.players.length - 1) * 3000;
-		if (maxBid < 0) maxBid = team.money;
+	if (maxBid < 0 || maxBid > team.money) maxBid = team.money;
         if (amount > maxBid) return Bot.say(this.room, teamName + ': Bid exceeds max bid of ' + maxBid);
         if (amount % 500 !== 0) return Bot.say(this.room, teamName + ': Bid must be a multiple of 500');
         clearTimeout(this.timer);
