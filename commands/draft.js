@@ -101,7 +101,7 @@ class Draft {
         Bot.say(this.room, targetName + ' is up for bidding!');
         let buffer = [];
         for (let property in this.players[targetId]) {
-            if (this.players[targetId][property] === 'Y') buffer.push(property);
+            if (this.players[targetId][property] === 'X') buffer.push(property);
         }
         Bot.say(this.room, 'Tiers: ' + buffer.join(' --- '));
         this.runBid(user, 3000);
