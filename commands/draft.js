@@ -1,16 +1,15 @@
 'use strict';
 const initialMoney = 100000; //Money each team should start with
-const minPlayers = 8; //Forces managers to buy a certain amount of players. To disable, set this to 1
-const defaultTeams = {//If you want teams set automatically, they can be placed here
-        //Leaving UUPL teams so you can see how it is done
-        /*"The Black City Burglars": "flcl",
-        "Mikan Island Monsters": "teal6",
-        "The Blackthorn City Battle Girls": "kinguu",
-        "Route 30 Youngsters": "dodmen",
-        "Slateport City Socialites": "hogg",
-        "Littleroot Lindas": "shiba",
-        "Dewford Town Delinquents": "fatty",
-        "Pewter Porygon 2s": "Omfuga"*/
+const minPlayers = 10; //Forces managers to buy a certain amount of players. To disable, set this to 1
+global.defaultTeams = {//If you want teams set automatically, they can be placed here
+        "Gonefroggin.com Froakies": "macle",
+	"The Crystal Onix": "nineage",
+	"Guerilla Goletts": "shrug",
+	"Stunting Stunkys": "sken",
+	"Waterless Wynauts": "waterlessmelon",
+	"The Belchsprouts": "levi",
+	"Snivy Subterfuge": "jac",
+	"Lit af Litleos": "op"
 };
 
 
@@ -102,7 +101,7 @@ class Draft {
         Bot.say(this.room, targetName + ' is up for bidding!');
         let buffer = [];
         for (let property in this.players[targetId]) {
-            if (this.players[targetId][property] === 'y') buffer.push(property);
+            if (this.players[targetId][property] === 'Y') buffer.push(property);
         }
         Bot.say(this.room, 'Tiers: ' + buffer.join(' --- '));
         this.runBid(user, 3000);
