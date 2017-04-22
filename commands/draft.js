@@ -2,6 +2,7 @@
 const initialMoney = 100000; //Money each team should start with
 const minPlayers = 10; //Forces managers to buy a certain amount of players. To disable, set this to 1
 const defaultTeams = {//If you want teams set automatically, they can be placed here
+	/*
         "Gonefroggin.com Froakies": "macle",
 	"The Crystal Onix": "nineage",
 	"Guerilla Goletts": "shrug",
@@ -10,6 +11,7 @@ const defaultTeams = {//If you want teams set automatically, they can be placed 
 	"The Belchsprouts": "levi",
 	"Snivy Subterfuge": "jac",
 	"Lit af Litleos": "op"
+	*/
 };
 
 
