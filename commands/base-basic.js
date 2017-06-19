@@ -8,6 +8,7 @@ exports.commands = {
 	credits: 'about',
 	bot: 'about',
 	about: function () {
+		Bot.say('Hi im bottonee');
 		this.restrictReply(this.trad('about') + ". " + this.trad('author') + ": " + Settings.package.author.name + ". (" + Settings.package.homepage + ")", 'info');
 	},
 
