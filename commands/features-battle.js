@@ -205,8 +205,8 @@ exports.commands = {
 				link = 'http://hastebin.com/raw/' + splitedLink[splitedLink.length - 1];
 				if (!Formats[format]) return this.reply(this.trad('format') + " __" + format + "__ " + this.trad('notexists'));
 				this.reply(this.trad('download') + '... (' + link + ')');
-				var http = require('http');
-				http.get(link, function (res) {
+				var https = require('https');
+				https.get(link, function (res) {
 					var data = '';
 					res.on('data', function (part) {
 						data += part;
