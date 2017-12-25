@@ -325,7 +325,7 @@ exports.commands = {
 				for (var i = 0; i < 5 && i < top.length; i++) {
 					topResults += ("<tr><td> #" + (i + 1) + " </td><td>" + Tools.toName(top[i][0]) + "</td><td>" + top[i][6] + "</td></tr>");
 				}
-				Bot.say(room, "<table><tbody><tr><th colspan=3>" + Tools.toName(tryGetRoomName(tarRoom)) + "</th></tr><tr><th>Rank</th><th>User</th><th>Score</th></tr>" + topResults + "</tbody></table>");
+				Bot.say(room, "/addhtmlbox <table><tbody><tr><th colspan=3>" + Tools.toName(tryGetRoomName(tarRoom)) + "</th></tr><tr><th>Rank</th><th>User</th><th>Score</th></tr>" + topResults + "</tbody></table>");
 				break;
 			default:
 				this.restrictReply(this.trad('unknown') + ". " + this.trad('usage') + ": " + this.cmdToken + this.handler + " [rank/top/table/reset/setconfig/viewconfig]", "rank");
