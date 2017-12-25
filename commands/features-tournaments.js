@@ -323,9 +323,9 @@ exports.commands = {
 				if (!top || !top.length) return this.restrictReply(this.trad('empty') + " " + tarRoom, "rank");
 				var topResults = "";
 				for (var i = 0; i < 5 && i < top.length; i++) {
-					topResults += ("<tr><td> #" + (i + 1) + " </td><td>" + Tools.toName(top[i][0]) + "</td><td>" + top[i][6] + "</td></tr>");
+					topResults += ("<tr><td style='text-align: left; padding: 3px;'> #" + (i + 1) + " </td><td style='text-align: left; padding: 3px;'>" + Tools.toName(top[i][0]) + "</td><td style='text-align: left; padding: 3px;'>" + top[i][6] + "</td></tr>");
 				}
-				Bot.say(room, "/addhtmlbox <table><tbody><tr><th colspan=3>" + Tools.toName(tryGetRoomName(tarRoom)) + "</th></tr><tr><th>Rank</th><th>User</th><th>Score</th></tr>" + topResults + "</tbody></table>");
+				Bot.say(room, "/addhtmlbox <table style='width: 100%; border-collapse: collapse;'><tbody><tr><th style='text-align: left;' colspan=3>" + Tools.toName(tryGetRoomName(tarRoom)) + "</th></tr><tr><th style='text-align: left; padding: 3px;'>Rank</th><th style='text-align: left; padding: 3px;'>User</th><th style='text-align: left; padding: 3px;'>Score</th></tr>" + topResults + "</tbody></table>");
 				break;
 			default:
 				this.restrictReply(this.trad('unknown') + ". " + this.trad('usage') + ": " + this.cmdToken + this.handler + " [rank/top/table/reset/setconfig/viewconfig]", "rank");
