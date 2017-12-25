@@ -314,6 +314,19 @@ exports.commands = {
 					return this.reply(this.trad('usage') + ": " + this.cmdToken + cmd + " [room], [on/off], [W], [F], [SF], [B], [official/all]");
 				}
 				break;
+			case "show":
+				if (args.length > 0) tarRoom = toRoomid(args[0]);
+				if (!tarRoom && this.roomType === "chat") tarRoom = room;
+				if (!tarRoom) return this.restrictReply(this.trad('usage') + ": " + this.cmdToken + cmd + " [room]", "rank");
+				if (!Features['tours'].Leaderboards.isConfigured(tarRoom)) return this.restrictReply(this.trad('not') + " " + tarRoom, "rank");
+				var top = Features['tours'].Leaderboards.getTop(tarRoom);
+				if (!top || !top.length) return this.restrictReply(this.trad('empty') + " " + tarRoom, "rank");
+				var topResults = "";
+				for (var i = 0; i < 5 && i < top.length; i++) {
+					topResults += ("<tr><td> #" + (i + 1) + " </td><td>" + Tools.toName(top[i][0]) + "</td><td>" + top[i][6] + "</td></tr>");
+				}
+				Bot.say(room, "<table><tbody><tr><th colspan=3>" + Tools.toName(tryGetRoomName(tarRoom)) + "</th></tr><tr><th>Rank</th><th>User</th><th>Score</th></tr>" + topResults + "</tbody></table>");
+				break;
 			default:
 				this.restrictReply(this.trad('unknown') + ". " + this.trad('usage') + ": " + this.cmdToken + this.handler + " [rank/top/table/reset/setconfig/viewconfig]", "rank");
 		}
