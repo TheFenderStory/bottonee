@@ -77,7 +77,8 @@ exports.commands = {
 	},
 
 	seen: function (arg, by, room, cmd) {
-		var text = '';
+		var text = 'Seen is currently not allowed by global rule changes.';
+		/*
 		arg = toId(arg);
 		if (!arg || arg.length > 18) return this.pmReply(this.trad('inv'));
 		if (arg === toId(Bot.status.nickName)) return this.pmReply(this.trad('bot'));
@@ -103,7 +104,7 @@ exports.commands = {
 			}
 		} else {
 			text += this.trad('n1') + ' ' + arg + ' ' + this.trad('n2');
-		}
+		}*/
 		this.pmReply(text);
 	},
 
