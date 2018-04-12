@@ -319,6 +319,28 @@ exports.tourDefault = {
 	scoutProtect: false
 };
 
+/*
+* Drafts
+* initialMoney: Money each team should start with
+* minPlayers: Forces managers to buy a certain amount of players. To disable, set this to 1
+* defaultTeams: If you want teams set automatically, they can be placed here
+*/
+
+exports.draftSettings = {
+	initialMoney: 100000,
+	minPlayers: 10,
+	defaultTeams: {
+		"Gonefroggin.com Froakies": "macle",
+		"The Crystal Onix": "nineage",
+		"Guerilla Goletts": "shrug",
+		"Stunting Stunkys": "sken",
+		"Waterless Wynauts": "waterlessmelon",
+		"The Belchsprouts": "levi",
+		"Snivy Subterfuge": "jac",
+		"Lit af Litleos": "op"
+	}
+}
+
 exports.leaderboards = {};
 
 /* Leaderboard example:

@@ -1,13 +1,7 @@
 'use strict';
-const initialMoney = 100000; //Money each team should start with
-const minPlayers = 10; //Forces managers to buy a certain amount of players. To disable, set this to 1
-const defaultTeams = {//If you want teams set automatically, they can be placed here
-};
-
-
 const fs = require('fs');
 
-global.drafts = {}; 
+global.drafts = {};
 
 class Draft {
     constructor(room) {
@@ -17,30 +11,30 @@ class Draft {
         this.state = "prep";
         this.managers = {};
         this.activeTeams = [];
-        
+
         this.nomination = null;
         this.currDirr = 1;
         this.nominee = null;
         this.bid = null;
         this.topBidder = null;
         this.timer = null;
-        
+
         this.draftlog = [];
     }
-    
+
     addTeam (name, captain) {
         let teamId = toId(name);
         this.teams[teamId] = {
             "name": name,
             "bidders": [captain],
             "players": [],
-            "money": initialMoney
+            "money": Config.draftSettings.initialMoney
         };
         this.managers[captain] = teamId;
         this.activeTeams.push(teamId);
         this.save();
     }
-    
+
     loadPlayers (url) {
         Tools.httpGet(url, data => {
             if (!data) return Bot.say(this.room, 'Could not load data. Make sure you are using a /raw/ pastebin or hastebin link.');
@@ -61,14 +55,14 @@ class Draft {
             Bot.say(this.room, 'Playerlist succesfully loaded.');
         });
     }
-    
+
     start () {
         this.state = "nominate";
         this.showAll(true);
         this.nomination = Object.keys(this.teams)[0];
         Bot.say(this.room, this.teams[this.nomination].name + ' are up to nominate. Bidders: ' + this.teams[this.nomination].bidders.join(', '));
     }
-    
+
     nextNominate (force) {//Force - force nomination to go to a NEW team (instead of repeating, like in snake)
         let teams = this.activeTeams;
         let teamIndex = teams.indexOf(this.nomination) + this.currDirr;
@@ -80,7 +74,7 @@ class Draft {
 		this.state = "nominate";
         Bot.say(this.room, this.teams[this.nomination].name + ' are up to nominate. Bidders: ' + this.teams[this.nomination].bidders.join(', '));
     }
-    
+
     runNominate (user, target) {
         if (!this.managers[user] || this.nomination !== this.managers[user]) return false;
         let targetId = toId(target);
@@ -98,13 +92,13 @@ class Draft {
         Bot.say(this.room, 'Tiers: ' + buffer.join(' --- '));
         this.runBid(user, 3000);
     }
-    
+
     showAll (manual) {
         let reiterations = 0;
         let teamList = Object.keys(this.teams)
         let showAllInterval = setInterval(() => {
             let team = this.teams[teamList[reiterations]];
-            if (!team) { 
+            if (!team) {
                 clearInterval(showAllInterval);
                 if (!manual) this.nextNominate();
                 return;
@@ -113,7 +107,7 @@ class Draft {
             reiterations++;
         }, 800);
     }
-    
+
     runBid (user, amount) {
         if (!this.managers[user]) return false;
         if (isNaN(amount)) return false;
@@ -121,7 +115,7 @@ class Draft {
         let teamName = team.name;
         if (amount <= 100) amount *= 1000;
         if (amount <= this.bid) return Bot.say(this.room, teamName + ': Bid must be at least 500 more than ' + this.bid);
-        let maxBid = team.money - (minPlayers - team.players.length - 1) * 3000;
+        let maxBid = team.money - (Config.draftSettings.minPlayers - team.players.length - 1) * 3000;
 	if (maxBid < 0 || maxBid > team.money) maxBid = team.money;
         if (amount > maxBid) return Bot.say(this.room, teamName + ': Bid exceeds max bid of ' + maxBid);
         if (amount % 500 !== 0) return Bot.say(this.room, teamName + ': Bid must be a multiple of 500');
@@ -144,7 +138,7 @@ class Draft {
             }, 5000);
         }, 7000);
     }
-    
+
     withdraw (user) {
         let team = this.managers[user];
         if (!team) return false;
@@ -154,7 +148,7 @@ class Draft {
         if (this.nomination === team) this.nextNominate(true);
         this.activeTeams.splice(this.activeTeams.indexOf(team), 1);
     }
-    
+
     constructLog () {
         let buffer = 'Draft Summary: \n';
         for (let i = 0; i < this.draftlog.length; i++) {
@@ -171,17 +165,17 @@ class Draft {
         }
         return buffer;
     }
-    
+
     save () {
         fs.writeFileSync('./data/draft.json', JSON.stringify(drafts));
     }
-    
+
     end () {
         let buffer = '';
         for (let i in this.teams) {
             let team = this.teams[i];
             buffer += team.name + ': [Money: ' + team.money + ' | Bidders: ' + team.bidders.join(', ') + '] Players: ' + team.players.join(', ') + '\n';
-        } 
+        }
         buffer += '\n' + this.constructLog();
         Tools.uploadToHastebin(buffer, (success, link) => {
             if (success) Bot.say(this.room, link);
@@ -204,17 +198,17 @@ exports.commands = {
                 delete drafts[room];
                 this.reply('Draft information erased for this room.');
                 break;
-                
-            case 'init' : 
+
+            case 'init' :
                 if (drafts[room]) return this.reply('There is currently a draft in progress in this room.');
                 drafts[room] = new Draft(room);
                 this.reply('A new draft has started!');
-                for (let k in defaultTeams) {
+                for (let k in Config.draftSettings.defaultTeams) {
                     drafts[room].addTeam(k, toId(defaultTeams[k]));
                 }
                 if (~Object.keys(drafts[room].teams)) this.reply('Default data loaded.');
                 break;
-            
+
             case 'addteam' :
                 if (!drafts[room] || drafts[room].state !== 'prep') return this.reply('There is no draft in configuration in this room.');
                 let args = parts.slice(1).join(' ').split(',');
@@ -222,39 +216,39 @@ exports.commands = {
                 drafts[room].addTeam(args[0], toId(args[1]));
                 this.reply('The team ' + args[0] + ' was added.');
                 break;
-           
+
             case 'load' :
             case 'loadplayers' :
                 if (!drafts[room] || drafts[room].state !== 'prep') return this.reply('There is no draft in configuration in this room.');
                 if (!parts[1]) return this.reply('Usage: /draft load <url>');
                 drafts[room].loadPlayers(parts[1]);
                 break;
-                
+
             case 'start' :
                 if (!drafts[room] || drafts[room].state !== 'prep') return this.reply('There is no draft in configuration in this room.');
                 if (Object.keys(drafts[room].teams).length < 2) return this.reply('You cannot start a draft with less than two teams.');
                 if (!Object.keys(drafts[room].players).length > 0) return this.reply('You cannot do this without loading player data.');
                 drafts[room].start();
                 break;
-                
+
             case 'skip' :
                 if (!drafts[room] || drafts[room].state === 'prep') return false;
                 if (this.timer) clearTimeout(this.timer);
                 drafts[room].nextNominate();
                 break;
-                
+
             case 'pause' :
                 if (!drafts[room] || drafts[room].state !== 'start') return false;
                 drafts[room].state = 'pause';
                 this.reply('The draft was paused');
                 break;
-                
+
             case 'resume' :
                 if (!drafts[room] || drafts[room].state !== 'pause') return false;
                 drafts[room].state = 'start';
                 this.reply('The draft was resumed!');
                 break;
-                
+
             case 'addbidder' :
                 if (!drafts[room]) return false;
                 let subargs = parts.slice(1).join(' ').split(',');
@@ -265,7 +259,7 @@ exports.commands = {
                 drafts[room].managers[toId(subargs[1])] = teamId;
                 this.reply(subargs[1] + ' was added as a bidder for ' + subargs[0] + '.');
                 break;
-                
+
             case 'removebidder' :
                 if (!drafts[room]) return false;
                 let subparts = parts.slice(1).join(' ').split(',');
@@ -278,14 +272,14 @@ exports.commands = {
                 delete drafts[room].managers[userId];
                 this.reply(subparts[1] + ' was removed from bidding for ' + subparts[0] + '.');
                 break;
-                
+
             case 'end' :
                 if (!drafts[room]) return this.reply('There is no draft in this room.');
                 this.reply('The draft has ended!');
                 drafts[room].end();
                 delete drafts[room];
                 break;
-                
+
             case 'override': //YES THIS CODE IS MESSY
                 if (!drafts[room] || drafts[room].state === 'prep') return false;
                 if (!parts[2]) return this.reply('You are not using this command correctly. Type .draft help for help.');
@@ -342,37 +336,37 @@ exports.commands = {
                         break;
                     }
                 break;
-            
+
             case 'showall' :
             case 'display' :
                 if (!drafts[room]) return false;
                 drafts[room].showAll(true);
                 break;
-                
+
             case 'help' :
             default :
                 return this.reply('Help: http://pastebin.com/rX91iTnu');
                 break;
         }
     },
-    
+
     b: 'bid',
     bid: function (arg, by, room) {
         if (!drafts[room] || drafts[room].state !== "start" || !drafts[room].nominee) return false;
         drafts[room].runBid(toId(by), arg);
     },
-    
+
     nom: 'nominate',
     nominate: function (arg, by, room) {
         if (!drafts[room] || drafts[room].state !== "nominate") return false;
         drafts[room].runNominate(toId(by), arg);
     },
-    
+
     withdraw: function (arg, by, room) {
         if (!drafts[room] || (drafts[room].state !== "start" && drafts[room].state !== "nominate")) return false;
         drafts[room].withdraw(toId(by));
     },
-    
+
     overpay: function (arg, by, room) {
         if (!drafts[room]) return false;
         this.reply('/wall OVERPAY');
