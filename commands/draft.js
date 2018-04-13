@@ -204,7 +204,7 @@ exports.commands = {
                 drafts[room] = new Draft(room);
                 this.reply('A new draft has started!');
                 for (let k in Config.draftSettings.defaultTeams) {
-                    drafts[room].addTeam(k, toId(defaultTeams[k]));
+                    drafts[room].addTeam(k, toId(Config.draftSettings.defaultTeams[k]));
                 }
                 if (~Object.keys(drafts[room].teams)) this.reply('Default data loaded.');
                 break;
