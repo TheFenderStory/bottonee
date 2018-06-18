@@ -1,6 +1,6 @@
-====================================================================
-Pokemon Showdown Auction Bot Commands
-====================================================================
+== 
+Pokemon Showdown Auction Bot Commands 
+==
 For managers:
 .bid <amount> or .<amount> - Bids a specified amount, in thousands (e.g. typing .4.5 bids 4500 on a player)
 .nom or .nominate <player> - Nominates a player. Name must match all capitalization and punctuation from imported list.
