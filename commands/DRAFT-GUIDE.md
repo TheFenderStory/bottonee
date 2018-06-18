@@ -1,4 +1,3 @@
-== 
 Pokemon Showdown Auction Bot Commands 
 ==
 For managers:
