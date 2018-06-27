@@ -2,8 +2,7 @@
 ====================
 
 [![Build Status](https://travis-ci.org/Ecuacion/Pokemon-Showdown-Node-Bot.svg)](https://travis-ci.org/Ecuacion/Pokemon-Showdown-Node-Bot)
-[![Dependency Status](https://david-dm.org/Ecuacion/Pokemon-Showdown-Node-Bot.svg)](https://david-dm.org/Ecuacion/Pokemon-Showdown-Node-Bot)
-[![devDependency Status](https://david-dm.org/Ecuacion/Pokemon-Showdown-Node-Bot/dev-status.svg)](https://david-dm.org/Ecuacion/Pokemon-Showdown-Node-Bot#info=devDependencies)
+[![dependencies Status](https://david-dm.org/thefenderstory/bottonee/status.svg)](https://david-dm.org/thefenderstory/bottonee)[![![devDependencies Status](https://david-dm.org/thefenderstory/bottonee/dev-status.svg)](https://david-dm.org/thefenderstory/bottonee?type=dev)
 [![Version](https://img.shields.io/badge/version-0.7.2-orange.svg)](https://github.com/Ecuacion/Pokemon-Showdown-Node-Bot#pokemon-showdown-bot-for-node)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://opensource.org/licenses/MIT)
 
