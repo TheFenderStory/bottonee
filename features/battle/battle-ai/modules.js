@@ -15,7 +15,7 @@ modFiles.forEach(function (file) {
 		debug("Loaded battle module: " + mod.id + (mod.desc ? (" [" + mod.desc + "]") : ""));
 	} catch (e) {
 		errlog(e.stack);
-		error("Could not import battle module: " + file + " | " + sys.inspect(e));
+		error("Could not import battle module: " + file + " | " + util.inspect(e));
 	}
 });
 

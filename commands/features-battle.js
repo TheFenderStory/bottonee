@@ -49,7 +49,7 @@ exports.commands = {
 			Features['battle'].BattleBot.battlesCount = Object.keys(data).length;
 			this.reply("Battle modules hotpatched");
 		} catch (e) {
-			this.reply("Error: " + sys.inspect(e));
+			this.reply("Error: " + util.inspect(e));
 		}
 	},
 
@@ -73,7 +73,7 @@ exports.commands = {
 		try {
 			Features['battle'].BattleBot.battles[room].makeDecision(true);
 		} catch (e) {
-			this.reply('Error: ' + sys.inspect(e));
+			this.reply('Error: ' + util.inspect(e));
 		}
 	},
 

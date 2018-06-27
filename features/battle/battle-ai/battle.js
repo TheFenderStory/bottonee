@@ -196,7 +196,7 @@ var Battle = exports.Battle = (function () {
 			decisions = decisionMaker.getDecisions(this);
 		} catch (e) {
 			debug(e.stack);
-			debug("Decision maker crashed: " + sys.inspect(e));
+			debug("Decision maker crashed: " + util.inspect(e));
 			SecurityLog.log("BATTLE D.M. CRASH: " + e.message + "\n" + e.stack);
 			this.lock = false;
 			return;
@@ -218,7 +218,7 @@ var Battle = exports.Battle = (function () {
 			}
 		} catch (ex) {
 			debug(ex.stack);
-			debug("Module failed: " + mod.id + " | " + sys.inspect(ex));
+			debug("Module failed: " + mod.id + " | " + util.inspect(ex));
 			SecurityLog.log("BATTLE MODULE FAILED: " + ex.message + "\nmodule: " + mod.id + "\n" + ex.stack);
 		}
 		this.lock = false;
@@ -271,7 +271,7 @@ var Battle = exports.Battle = (function () {
 				minor = minors[minor];
 			}
 			if (typeof minor !== "function") {
-				error("Unknown minor type: " + args[0] + " - " + sys.inspect(minor) + "");
+				error("Unknown minor type: " + args[0] + " - " + util.inspect(minor) + "");
 			} else {
 				try {
 					minor.call(this, args, kwargs, isIntro);
@@ -293,7 +293,7 @@ var Battle = exports.Battle = (function () {
 				major = majors[major];
 			}
 			if (typeof major !== "function") {
-				error("Unknown major type: " + args[0] + " - " + sys.inspect(major) + "");
+				error("Unknown major type: " + args[0] + " - " + util.inspect(major) + "");
 			} else {
 				try {
 					major.call(this, args, kwargs, isIntro);

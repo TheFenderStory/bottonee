@@ -393,7 +393,7 @@ var loadLang = exports.loadLang = function (lang, reloading) {
 		if (reloading) Tools.uncacheTree('./languages/' + lang + '/' + file);
 		tempObj = require('./languages/' + lang + '/' + file).translations;
 		for (var t in tempObj) {
-			if (t === "commands") Object.merge(cmdsTra, tempObj[t]);
+			if (t === "commands") Object.assign(cmdsTra, tempObj[t]);
 			else tradObj[t] = tempObj[t];
 		}
 	});
@@ -410,7 +410,7 @@ var loadTranslations = exports.loadTranslations = function (reloading) {
 				translations[lang] = loadLang(lang, reloading);
 			} catch (e) {
 				errlog(e.stack);
-				error("Could not import language: ./languages/" + lang + "/ | " + sys.inspect(e));
+				error("Could not import language: ./languages/" + lang + "/ | " + util.inspect(e));
 				errs.push(lang);
 			}
 		}

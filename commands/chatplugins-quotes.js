@@ -11,14 +11,14 @@ try {
 	quotes = quotesFFM.readObj();
 } catch (e) {
 	errlog(e.stack);
-	error("Could not import quotes: " + sys.inspect(e));
+	error("Could not import quotes: " + util.inspect(e));
 }
 
 try {
 	jokes = jokesFFM.readObj();
 } catch (e) {
 	errlog(e.stack);
-	error("Could not import jokes: " + sys.inspect(e));
+	error("Could not import jokes: " + util.inspect(e));
 }
 
 var saveQuotes = function () {

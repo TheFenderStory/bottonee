@@ -83,10 +83,10 @@ var LogServer = (function () {
 		this.update();
 
 		request.on('error', function (err) {
-			this.log("Request error: " + sys.inspect(err));
+			this.log("Request error: " + util.inspect(err));
 		}.bind(this));
 		response.on('error', function (err) {
-			this.log("Respose error: " + sys.inspect(err));
+			this.log("Respose error: " + util.inspect(err));
 		}.bind(this));
 
 		if (url === '/favicon.ico') {

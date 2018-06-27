@@ -58,7 +58,7 @@ exports.commands = {
 			try {
 				data = JSON.parse(data);
 			} catch (e) {
-				debug(sys.inspect(e));
+				debug(util.inspect(e));
 				return this.pmReply(this.trad('err') + " " + url);
 			}
 			if (typeof data.registertime !== "number") {

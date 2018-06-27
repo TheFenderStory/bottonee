@@ -87,12 +87,12 @@ var cmdParser = exports.cmdParser = function (room, by, msg) {
 				commands[handler].call(context, args, by, room, cmd, Games[room]);
 			} catch (e) {
 				errlog(e.stack);
-				error("Command crash (game): " + cmd + ' | by: ' + by + ' | room: ' + room + ' | ' + sys.inspect(e));
-				Bot.say(room, 'The command crashed: ' + sys.inspect(e).toString().split('\n').join(' '));
+				error("Command crash (game): " + cmd + ' | by: ' + by + ' | room: ' + room + ' | ' + util.inspect(e));
+				Bot.say(room, 'The command crashed: ' + util.inspect(e).toString().split('\n').join(' '));
 			}
 			return true;
 		} else {
-			error("unkwown command type: " + cmd + ' = ' + sys.inspect(commands[handler]));
+			error("unkwown command type: " + cmd + ' = ' + util.inspect(commands[handler]));
 		}
 	}
 };

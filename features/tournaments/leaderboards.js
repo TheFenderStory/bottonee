@@ -12,7 +12,7 @@ try {
 	ladder = exports.ladder = toursFFM.readObj();
 } catch (e) {
 	errlog(e.stack);
-	error("Could not import tours data: " + sys.inspect(e));
+	error("Could not import tours data: " + util.inspect(e));
 }
 
 var save = exports.save = function () {
